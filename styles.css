@@ -1,7 +1,7 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background-color: #212529;
-    color: #f8f9fa;
+    background-color: #2c3e50; /* A dark, professional blue-gray */
+    color: #ecf0f1; /* Light gray for text */
     margin: 0;
     padding: 0;
     display: flex;
@@ -13,7 +13,7 @@ body {
 .dashboard-container {
     width: 90%;
     max-width: 1200px;
-    background-color: #343a40;
+    background-color: #34495e; /* A slightly lighter blue-gray */
     border-radius: 12px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
     padding: 24px;
@@ -25,7 +25,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding-bottom: 24px;
-    border-bottom: 1px solid #495057;
+    border-bottom: 1px solid #4a647d;
     margin-bottom: 24px;
 }
 
@@ -39,24 +39,24 @@ body {
 .logo i {
     font-size: 2em;
     margin-right: 8px;
-    color: #4CAF50;
+    color: #3498db; /* Professional blue accent */
 }
 
 .header-icons i {
     font-size: 1.5em;
     margin-left: 16px;
     cursor: pointer;
-    color: #ced4da;
+    color: #bdc3c7;
     transition: color 0.2s;
 }
 
 .header-icons i:hover {
-    color: #f8f9fa;
+    color: #ecf0f1;
 }
 
 .page-title {
     font-size: 2em;
-    color: #4CAF50;
+    color: #3498db; /* Professional blue accent */
     margin-bottom: 24px;
 }
 
@@ -67,15 +67,15 @@ body {
 }
 
 .agv-status-card, .control-card {
-    background-color: #495057;
+    background-color: #4a647d;
     border-radius: 8px;
     padding: 24px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 h2 {
-    color: #4CAF50;
-    border-bottom: 1px solid #6c757d;
+    color: #3498db; /* Professional blue accent */
+    border-bottom: 1px solid #5d758d;
     padding-bottom: 8px;
     margin-top: 0;
     margin-bottom: 16px;
@@ -91,7 +91,7 @@ h2 {
     width: 150px;
     height: 150px;
     object-fit: contain;
-    background-color: #6c757d;
+    background-color: #5d758d;
     border-radius: 8px;
 }
 
@@ -100,7 +100,7 @@ h2 {
 }
 
 .info-list strong {
-    color: #ced4da;
+    color: #bdc3c7;
 }
 
 .button-group {
@@ -117,7 +117,7 @@ h2 {
     cursor: pointer;
     font-size: 1em;
     font-weight: bold;
-    color: #f8f9fa;
+    color: #ecf0f1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -125,85 +125,5 @@ h2 {
     transition: background-color 0.2s, transform 0.2s;
 }
 
-.dock-btn { background-color: #007bff; }
-.start-btn { background-color: #28a745; }
-.stop-btn { background-color: #dc3545; }
-.shutdown-btn { background-color: #6c757d; }
-
-.control-btn:hover {
-    transform: translateY(-2px);
-}
-
-.dock-btn:hover { background-color: #0056b3; }
-.start-btn:hover { background-color: #218838; }
-.stop-btn:hover { background-color: #c82333; }
-.shutdown-btn:hover { background-color: #5a6268; }
-
-.task-select-group {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-top: 16px;
-}
-
-#route-select {
-    padding: 8px;
-    border-radius: 4px;
-    border: 1px solid #ced4da;
-    background-color: #343a40;
-    color: #f8f9fa;
-    flex-grow: 1;
-}
-
-.action-btn {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    background-color: #6c757d;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.action-btn:hover {
-    background-color: #5a6268;
-}
-
-.color-swatches {
-    display: flex;
-    gap: 12px;
-    margin-top: 16px;
-}
-
-.swatch {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 3px solid transparent;
-    transition: border-color 0.2s;
-}
-
-.swatch:hover {
-    border-color: #f8f9fa;
-}
-
-.red { background-color: #E53935; }
-.yellow { background-color: #FFC107; }
-.blue { background-color: #2196F3; }
-.green { background-color: #4CAF50; }
-
-.system-log {
-    margin-top: 24px;
-}
-
-#log-console {
-    background-color: #212529;
-    padding: 16px;
-    border-radius: 8px;
-    height: 100px;
-    overflow-y: auto;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 0.9em;
-    color: #adb5bd;
-}
+.dock-btn { background-color: #2980b9; } /* A deeper blue */
+.start-btn { background-color: #27ae60; } /* A professional
