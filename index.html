@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGV-Alpha Control Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="header">
+            <div class="logo">
+                <i class="material-icons">directions_bus</i>
+                <span>AGV Fleet Management System</span>
+            </div>
+            <div class="header-icons">
+                <i class="material-icons">search</i>
+                <i class="material-icons">settings</i>
+                <i class="material-icons">account_circle</i>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <h1 class="page-title">AGV-Alpha Control Dashboard</h1>
+
+            <div class="control-grid">
+                <div class="agv-status-card">
+                    <h2>AGV Status & Info</h2>
+                    <div class="agv-info-section">
+                        <img src="https://via.placeholder.com/150" alt="AGV image" class="agv-image">
+                        <div class="info-list">
+                            <p><strong>Status:</strong> <span id="status">Idle</span></p>
+                            <p><strong>Battery:</strong> <span id="battery">92%</span></p>
+                            <p><strong>Location:</strong> <span id="location">Zone C, Station 2</span></p>
+                            <p><strong>Active Task:</strong> <span id="active-task">None</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-card">
+                    <h2>Control & Operations</h2>
+                    <div class="button-group">
+                        <button class="control-btn dock-btn"><i class="material-icons">power</i> Docking / Charge</button>
+                        <button class="control-btn start-btn"><i class="material-icons">play_arrow</i> Start</button>
+                        <button class="control-btn stop-btn"><i class="material-icons">stop</i> Stop</button>
+                        <button class="control-btn shutdown-btn"><i class="material-icons">power_settings_new</i> Shutdown</button>
+                    </div>
+
+                    <div class="task-management">
+                        <h2>Task Management</h2>
+                        <div class="task-select-group">
+                            <label for="route-select">Select Route:</label>
+                            <select id="route-select">
+                                <option value="route-a">Route A (Warehouse)</option>
+                                <option value="route-b">Route B (Assembly Line)</option>
+                            </select>
+                            <button class="action-btn">Load</button>
+                            <button class="action-btn">Queue</button>
+                        </div>
+                    </div>
+
+                    <div class="color-customize">
+                        <h2>Color Customize</h2>
+                        <div class="color-swatches">
+                            <div class="swatch red" data-color="#E53935"></div>
+                            <div class="swatch yellow" data-color="#FFC107"></div>
+                            <div class="swatch blue" data-color="#2196F3"></div>
+                            <div class="swatch green" data-color="#4CAF50"></div>
+                        </div>
+                    </div>
+
+                    <div class="system-log">
+                        <h2>System Log</h2>
+                        <div id="log-console">
+                            <p>[10:35] AGV-Alpha: Safe</p>
+                            <p>[10:52] User: Route A Docked</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
