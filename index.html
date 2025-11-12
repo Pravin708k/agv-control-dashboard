@@ -4,83 +4,290 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AGV-Alpha Control Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Load Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Inter font family -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Define CSS variables for easy manipulation via JS */
+            --color-accent: #11b6f1;
+            --color-panel: #2b4756;
+            --color-background: #0f1f24;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #101c27, #0f1f24 50%, #152d3a);
+            color: #e2e8f0;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        
+        /* Apply custom colors using the variables */
+        .dashboard-panel {
+            background-color: var(--color-panel);
+        }
+        .text-accent {
+            color: var(--color-accent);
+        }
+        .bg-accent {
+            background-color: var(--color-accent);
+        }
+        .border-accent {
+            border-color: var(--color-accent);
+        }
+
+        /* Custom scrollbar for log */
+        .log-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        .log-container::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+        }
+
+        /* Custom shadow for a futuristic look */
+        .button-shadow {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(17, 182, 241, 0.5);
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+        .button-shadow:hover {
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.5), 0 2px 5px rgba(17, 182, 241, 0.7);
+            transform: translateY(-1px);
+        }
+    </style>
 </head>
 <body>
-    <div class="dashboard-container">
-        <header class="header">
-            <div class="logo">
-                <i class="material-icons">directions_bus</i>
-                <span>AGV Fleet Management System</span>
-            </div>
-            <div class="header-icons">
-                <i class="material-icons">search</i>
-                <i class="material-icons">settings</i>
-                <i class="material-icons">account_circle</i>
-            </div>
-        </header>
 
-        <div class="main-content">
-            <h1 class="page-title">AGV-Alpha Control Dashboard</h1>
-
-            <div class="control-grid">
-                <div class="agv-status-card">
-                    <h2>AGV Status & Info</h2>
-                    <div class="agv-info-section">
-                        <img src="https://via.placeholder.com/150" alt="AGV image" class="agv-image">
-                        <div class="info-list">
-                            <p><strong>Status:</strong> <span id="status">Idle</span></p>
-                            <p><strong>Battery:</strong> <span id="battery">92%</span></p>
-                            <p><strong>Location:</strong> <span id="location">Zone C, Station 2</span></p>
-                            <p><strong>Active Task:</strong> <span id="active-task">None</span></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="control-card">
-                    <h2>Control & Operations</h2>
-                    <div class="button-group">
-                        <button class="control-btn dock-btn"><i class="material-icons">power</i> Docking / Charge</button>
-                        <button class="control-btn start-btn"><i class="material-icons">play_arrow</i> Start</button>
-                        <button class="control-btn stop-btn"><i class="material-icons">stop</i> Stop</button>
-                        <button class="control-btn shutdown-btn"><i class="material-icons">power_settings_new</i> Shutdown</button>
-                    </div>
-
-                    <div class="task-management">
-                        <h2>Task Management</h2>
-                        <div class="task-select-group">
-                            <label for="route-select">Select Route:</label>
-                            <select id="route-select">
-                                <option value="route-a">Route A (Warehouse)</option>
-                                <option value="route-b">Route B (Assembly Line)</option>
-                            </select>
-                            <button class="action-btn">Load</button>
-                            <button class="action-btn">Queue</button>
-                        </div>
-                    </div>
-
-                    <div class="color-customize">
-                        <h2>Color Customize</h2>
-                        <div class="color-swatches">
-                            <div class="swatch red" data-color="#E53935"></div>
-                            <div class="swatch yellow" data-color="#FFC107"></div>
-                            <div class="swatch blue" data-color="#2196F3"></div>
-                            <div class="swatch green" data-color="#4CAF50"></div>
-                        </div>
-                    </div>
-
-                    <div class="system-log">
-                        <h2>System Log</h2>
-                        <div id="log-console">
-                            <p>[10:35] AGV-Alpha: Safe</p>
-                            <p>[10:52] User: Route A Docked</p>
-                        </div>
-                    </div>
-                </div>
+<div class="max-w-7xl mx-auto">
+    <!-- Header -->
+    <header class="flex justify-between items-center p-4 mb-6">
+        <div class="flex items-center space-x-3">
+            <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+            <div>
+                <h1 class="text-2xl font-bold text-gray-50">AGV-Alpha Control Dashboard</h1>
+                <p class="text-sm text-gray-400">AGV Fleet Management System</p>
             </div>
         </div>
+        <div class="flex space-x-4">
+            <button class="text-gray-400 hover:text-accent focus:outline-none"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></button>
+            <button class="text-gray-400 hover:text-accent focus:outline-none"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg></button>
+            <button class="text-gray-400 hover:text-accent focus:outline-none"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg></button>
+        </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- Column 1: AGV Status & Info -->
+        <div class="dashboard-panel p-6 rounded-xl shadow-lg transition-colors">
+            <h2 class="text-xl font-semibold mb-4 border-b border-gray-600 pb-2">AGV Status & Info</h2>
+
+            <div class="space-y-3 text-sm">
+                <p><span class="text-gray-400 font-medium">Status:</span> <span class="text-green-400 font-bold">Idle</span></p>
+                <p><span class="text-gray-400 font-medium">Battery:</span> <span class="font-bold">92%</span></p>
+                <p><span class="text-gray-400 font-medium">Location:</span> Zone C, Station 2</p>
+                <p><span class="text-gray-400 font-medium">Active Task:</span> None</p>
+            </div>
+
+            <div class="flex items-center my-6">
+                <!-- AGV Icon (using an emoji for simplicity) -->
+                <div class="text-5xl mr-4 transform -rotate-12">
+                    🚗
+                </div>
+                <div class="flex-1">
+                    <p class="text-xs text-gray-400 mb-1">Active Task Progress</p>
+                    <div class="w-full bg-gray-600 rounded-full h-2.5">
+                        <!-- Progress bar (0% for Idle) -->
+                        <div class="h-2.5 rounded-full bg-accent" style="width: 0%;"></div>
+                    </div>
+                    <p class="text-xs text-right text-gray-400 mt-1">Est. Range: 138 km</p>
+                </div>
+            </div>
+
+            <div class="flex justify-between space-x-4 mt-6">
+                <button class="flex-1 py-3 px-4 rounded-lg bg-gray-700 text-gray-50 hover:bg-gray-600 transition-colors">
+                    Dock / Charge
+                </button>
+                <button class="flex-1 py-3 px-4 rounded-lg bg-gray-700 text-gray-50 hover:bg-gray-600 transition-colors">
+                    Sim -10%
+                </button>
+            </div>
+        </div>
+
+        <!-- Column 2: Control & Operations -->
+        <div class="dashboard-panel lg:col-span-1 p-6 rounded-xl shadow-lg transition-colors">
+            <h2 class="text-xl font-semibold mb-4 border-b border-gray-600 pb-2">Control & Operations</h2>
+
+            <!-- AGV Control Buttons -->
+            <div class="flex space-x-3 mb-6">
+                <button class="flex-1 py-3 px-4 rounded-lg bg-accent text-white font-semibold button-shadow hover:opacity-90">
+                    Dock
+                </button>
+                <button class="flex-1 py-3 px-4 rounded-lg bg-green-500 text-gray-900 font-semibold shadow-lg shadow-green-700/50 hover:bg-green-400 transition-colors">
+                    Start
+                </button>
+                <button class="flex-1 py-3 px-4 rounded-lg bg-red-600 text-white font-semibold shadow-lg shadow-red-800/50 hover:bg-red-500 transition-colors">
+                    Stop
+                </button>
+            </div>
+
+            <div class="mb-8">
+                <button class="w-full py-3 px-4 rounded-lg bg-gray-700 text-gray-50 font-semibold hover:bg-gray-600 transition-colors flex items-center justify-center space-x-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span>Shutdown</span>
+                </button>
+            </div>
+
+            <!-- Task Management -->
+            <h3 class="text-lg text-accent font-medium mb-3 border-b border-gray-700 pb-1">Task Management</h3>
+            <div class="flex space-x-3 mb-6">
+                <select class="flex-1 py-3 px-4 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-accent">
+                    <option>Route A (Warehouse)</option>
+                    <option>Route B (Shipping)</option>
+                    <option>Route C (Maintenance)</option>
+                </select>
+                <button class="py-3 px-4 rounded-lg bg-gray-700 text-gray-50 hover:bg-gray-600 transition-colors">
+                    Load
+                </button>
+                <button class="py-3 px-4 rounded-lg bg-gray-700 text-gray-50 hover:bg-gray-600 transition-colors">
+                    Queue
+                </button>
+            </div>
+
+            <!-- System Log -->
+            <h3 class="text-lg text-accent font-medium mb-3 border-b border-gray-700 pb-1">System Log</h3>
+            <div class="log-container h-32 p-3 bg-gray-800 rounded-lg text-xs overflow-y-scroll space-y-1">
+                <p class="text-gray-500">[10:59] <span class="text-green-400">AGV-Alpha: Safe</span></p>
+                <p class="text-gray-500">[10:57] User: Route A Docked</p>
+                <p class="text-gray-500">[10:55] <span class="text-red-400">AGV-Beta: Error 501</span></p>
+                <p class="text-gray-500">[10:52] AGV-Alpha: Task Complete</p>
+                <p class="text-gray-500">[10:50] User: Load Route B</p>
+                <p class="text-gray-500">[10:48] AGV-Alpha: Disconnected (reconnecting...)</p>
+                <p class="text-gray-500">[10:45] AGV-Gamma: Idle</p>
+                <p class="text-gray-500">[10:43] System: Maintenance Schedule Updated</p>
+            </div>
+        </div>
+
+        <!-- Column 3: Color Customize -->
+        <div class="dashboard-panel p-6 rounded-xl shadow-lg transition-colors">
+            <h2 class="text-xl font-semibold mb-4 border-b border-gray-600 pb-2">Color Customize</h2>
+
+            <!-- Color Inputs -->
+            <div class="space-y-4 mb-8" id="color-inputs">
+                <!-- Accent Color -->
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-300">Accent</span>
+                    <div class="flex items-center space-x-2">
+                        <input type="text" id="accent-hex" value="#11b6f1" class="w-24 p-2 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-accent text-sm">
+                        <div id="accent-swatch" class="w-6 h-6 rounded-md shadow-inner bg-accent cursor-pointer" style="background-color: #11b6f1;" data-color-target="accent"></div>
+                    </div>
+                </div>
+
+                <!-- Panel Color -->
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-300">Panel</span>
+                    <div class="flex items-center space-x-2">
+                        <input type="text" id="panel-hex" value="#2b4756" class="w-24 p-2 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-accent text-sm">
+                        <div id="panel-swatch" class="w-6 h-6 rounded-md shadow-inner cursor-pointer" style="background-color: #2b4756;" data-color-target="panel"></div>
+                    </div>
+                </div>
+
+                <!-- Background Color -->
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-300">Background</span>
+                    <div class="flex items-center space-x-2">
+                        <input type="text" id="background-hex" value="#0f1f24" class="w-24 p-2 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-accent text-sm">
+                        <div id="background-swatch" class="w-6 h-6 rounded-md shadow-inner cursor-pointer" style="background-color: #0f1f24;" data-color-target="background"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Presets -->
+            <h3 class="text-lg text-accent font-medium mb-3 border-b border-gray-700 pb-1">Quick Presets</h3>
+            <div class="flex space-x-2 mb-8" id="quick-presets">
+                <!-- Data-preset format: accent, panel, background -->
+                <div class="w-8 h-8 rounded-full shadow-lg cursor-pointer" style="background-color: #11b6f1;" data-preset="#11b6f1,#2b4756,#0f1f24" title="Alpha Blue"></div>
+                <div class="w-8 h-8 rounded-full shadow-lg cursor-pointer" style="background-color: #00e0b3;" data-preset="#00e0b3,#2f3e4e,#1e2630" title="Mint Green"></div>
+                <div class="w-8 h-8 rounded-full shadow-lg cursor-pointer" style="background-color: #9c27b0;" data-preset="#9c27b0,#333333,#1a1a1a" title="Deep Purple"></div>
+                <div class="w-8 h-8 rounded-full shadow-lg cursor-pointer" style="background-color: #ff9800;" data-preset="#ff9800,#3a2d21,#211a14" title="Amber"></div>
+            </div>
+
+            <!-- Custom Accent -->
+            <h3 class="text-lg text-accent font-medium mb-3 border-b border-gray-700 pb-1">Custom Accent</h3>
+            <div class="flex justify-between items-center">
+                <input type="text" id="custom-accent-hex" value="#11b6f1" class="w-full p-2 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-accent text-sm">
+            </div>
+
+            <p class="text-xs text-gray-500 mt-4">Tip: Customize the accent color to match your brand. Changes apply instantly to the dashboard accent.</p>
+        </div>
     </div>
-    <script src="script.js"></script>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const root = document.documentElement;
+        const colorTargets = [
+            { id: 'accent', input: document.getElementById('accent-hex'), swatch: document.getElementById('accent-swatch') },
+            { id: 'panel', input: document.getElementById('panel-hex'), swatch: document.getElementById('panel-swatch') },
+            { id: 'background', input: document.getElementById('background-hex'), swatch: document.getElementById('background-swatch') },
+        ];
+
+        /**
+         * Updates the CSS variables and swatch colors based on the input.
+         * @param {string} target - 'accent', 'panel', or 'background'
+         * @param {string} value - Hex color string
+         */
+        function updateColor(target, value) {
+            // Simple check to ensure it looks like a hex color
+            if (!/^#([0-9A-Fa-f]{3}){1,2}$/.test(value)) {
+                console.error(`Invalid hex color for ${target}: ${value}`);
+                return;
+            }
+
+            // 1. Update CSS variable
+            root.style.setProperty(`--color-${target}`, value);
+
+            // 2. Update the corresponding input/swatch in the UI
+            const targetObject = colorTargets.find(t => t.id === target);
+            if (targetObject) {
+                targetObject.input.value = value;
+                targetObject.swatch.style.backgroundColor = value;
+            }
+        }
+
+        // --- Event Listeners for Input Fields ---
+        colorTargets.forEach(target => {
+            // Listen for changes in the hex input field
+            target.input.addEventListener('change', (e) => {
+                updateColor(target.id, e.target.value);
+            });
+        });
+
+        // --- Event Listeners for Quick Presets ---
+        document.getElementById('quick-presets').addEventListener('click', (e) => {
+            const presetDiv = e.target.closest('[data-preset]');
+            if (presetDiv) {
+                const [accent, panel, background] = presetDiv.dataset.preset.split(',');
+                
+                // Update all three colors
+                updateColor('accent', accent);
+                updateColor('panel', panel);
+                updateColor('background', background);
+            }
+        });
+        
+        // --- Event Listener for Custom Accent Input ---
+        document.getElementById('custom-accent-hex').addEventListener('change', (e) => {
+            updateColor('accent', e.target.value);
+        });
+
+        // Initialize custom accent input value to match the initial accent color
+        const initialAccent = colorTargets.find(t => t.id === 'accent').input.value;
+        document.getElementById('custom-accent-hex').value = initialAccent;
+    });
+</script>
+
 </body>
 </html>
